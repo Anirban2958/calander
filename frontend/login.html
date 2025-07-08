@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!-- HTML5 document type declaration for modern HTML -->
+<html lang="en">
+<!-- Root HTML element with English language attribute for accessibility -->
+<head>
+    <!-- Meta information about the document -->
+    <meta charset="UTF-8">
+    <!-- Character encoding set to UTF-8 to support international characters -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Responsive design meta tag - ensures proper scaling on mobile devices -->
+    <title>Admin Login - Boxo Event Calendar</title>
+    <!-- Page title displayed in browser tab -->
+    
+    <!-- CSS STYLESHEETS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Link to local stylesheet for custom styling -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Inter font family with various weights for modern typography -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome icons library for UI icons throughout the login form -->
+</head>
+<body>
+    <!-- Main login page container -->
+    <div class="login-container">
+        <!-- Login card wrapper for centered layout -->
+        <div class="login-card">
+            <!-- LOGIN HEADER SECTION -->
+            <div class="login-header">
+                <!-- Security shield icon for admin login -->
+                <i class="fas fa-shield-alt"></i>
+                <!-- Main login page title -->
+                <h1>Admin Login</h1>
+                <!-- Subtitle explaining the purpose -->
+                <p>Access to Boxo Event Calendar Admin Panel</p>
+            </div>
+            
+            <!-- LOGIN FORM SECTION -->
+            <form id="loginForm" class="login-form">
+                <!-- Username input field with icon -->
+                <div class="form-group has-icon">
+                    <!-- Username field label -->
+                    <label for="username">Username</label>
+                    <!-- Username input with accessibility and security attributes -->
+                    <input type="text" id="username" name="username" required autocomplete="username" placeholder="Enter your username">
+                    <!-- User icon positioned inside the input field -->
+                    <i class="fas fa-user input-icon"></i>
+                </div>
+                
+                <!-- Password input field with icon and toggle functionality -->
+                <div class="form-group has-icon has-password">
+                    <!-- Password field label -->
+                    <label for="password">Password</label>
+                    <!-- Password input with accessibility and security attributes -->
+                    <input type="password" id="password" name="password" required autocomplete="current-password" placeholder="Enter your password">
+                    <!-- Lock icon positioned inside the input field -->
+                    <i class="fas fa-lock input-icon"></i>
+                    <!-- Toggle button to show/hide password -->
+                    <button type="button" class="password-toggle" onclick="togglePassword()">
+                        <!-- Eye icon that changes when password visibility is toggled -->
+                        <i class="fas fa-eye" id="passwordIcon"></i>
+                    </button>
+                </div>
+                
+                <!-- Submit button for login form -->
+                <button type="submit" class="btn btn-primary btn-full">
+                    <!-- Sign-in icon and text -->
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+            
+            <!-- REGISTRATION LINK SECTION -->
+            <div class="auth-links">
+                <!-- Prompt for users without accounts -->
+                <p>Don't have an admin account?</p>
+                <!-- Link to registration page -->
+                <a href="register.html">Create Admin Account</a>
+            </div>
+            
+            <!-- NAVIGATION FOOTER -->
+            <div class="login-footer">
+                <!-- Back to main calendar link -->
+                <a href="index.html" class="back-link">
+                    <!-- Arrow icon for navigation -->
+                    <i class="fas fa-arrow-left"></i> Back to Calendar
+                </a>
+            </div>
+            
+            <!-- DEMO CREDENTIALS SECTION -->
+            <div class="demo-credentials">
+                <!-- Demo section title with info icon -->
+                <h4><i class="fas fa-info-circle"></i> Demo Credentials</h4>
+                <!-- Default admin username -->
+                <p><strong>Username:</strong> admin</p>
+                <!-- Default admin password -->
+                <p><strong>Password:</strong> boxo2025</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT FUNCTIONALITY -->
+
+    <!-- JAVASCRIPT FUNCTIONALITY -->
+    <script>
+        /**
+         * Toggle password visibility function
+         * Switches between showing and hiding password text
+         */
+        function togglePassword() {
+            // Get password input field and icon elements
+            const passwordInput = document.getElementById('password');
+            const passwordIcon = document.getElementById('passwordIcon');
+            
+            // Check current password input type and toggle
+            if (passwordInput.type === 'password') {
+                // Show password as plain text
+                passwordInput.type = 'text';
+                // Change icon to "eye-slash" to indicate password is visible
+                passwordIcon.className = 'fas fa-eye-slash';
+            } else {
+                // Hide password (show as dots)
+                passwordInput.type = 'password';
+                // Change icon back to "eye" to indicate password is hidden
+                passwordIcon.className = 'fas fa-eye';
+            }
+        }
+
+        /**
+         * Login form submission handler
+         * Handles authentication and redirects to admin panel on success
+         */
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            // Prevent default form submission behavior
+            e.preventDefault();
+            
+            // Extract form data
+            const formData = new FormData(e.target);
+            const credentials = {
+                username: formData.get('username'),  // Get username from form
+                password: formData.get('password')   // Get password from form
+            };
+            
+            try {
+                // Send login request to backend API
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',                        // HTTP POST method
+                    headers: {
+                        'Content-Type': 'application/json' // Send JSON data
+                    },
+                    body: JSON.stringify(credentials)      // Convert credentials to JSON string
+                });
+                
+                // Parse response from server
+                const result = await response.json();
+                
+                if (response.ok) {
+                    // Login successful
+                    // Store authentication token in browser's local storage
+                    localStorage.setItem('adminToken', result.token);
+                    // Redirect user to admin panel
+                    window.location.href = 'admin-panel.html';
+                } else {
+                    // Login failed - show error message
+                    showError(result.message || 'Invalid credentials');
+                }
+            } catch (error) {
+                // Handle network or other errors
+                showError('Login failed. Please try again.');
+            }
+        });
+        
+        /**
+         * Display error message to user
+         * @param {string} message - Error message to display
+         */
+        function showError(message) {
+            // Remove any existing error message first
+            const existingError = document.querySelector('.error-message');
+            if (existingError) {
+                existingError.remove();
+            }
+            
+            // Create new error message element
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            // Add warning icon and error message
+            errorDiv.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${message}`;
+            
+            // Insert error message at the top of the form
+            const form = document.getElementById('loginForm');
+            form.insertBefore(errorDiv, form.firstChild);
+            
+            // Auto-remove error message after 5 seconds
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 5000);
+        }
+        
+        /**
+         * Check if user is already logged in when page loads
+         * If valid token exists, redirect to admin panel automatically
+         */
+        window.addEventListener('DOMContentLoaded', () => {
+            // Check if authentication token exists in local storage
+            const token = localStorage.getItem('adminToken');
+            if (token) {
+                // Verify token is still valid with backend
+                fetch('/api/auth/verify', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`  // Send token in Authorization header
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Token is valid - redirect to admin panel
+                        window.location.href = 'admin-panel.html';
+                    } else {
+                        // Token is invalid or expired - remove it
+                        localStorage.removeItem('adminToken');
+                    }
+                })
+                .catch(() => {
+                    // Network error or other issue - remove invalid token
+                    localStorage.removeItem('adminToken');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
+<!-- ======================================================================== -->
+<!-- END OF LOGIN.HTML - ADMIN AUTHENTICATION PAGE                          -->
+<!-- This page handles admin user login with the following features:         -->
+<!-- - Username/password authentication                                       -->
+<!-- - Password visibility toggle                                            -->
+<!-- - Token-based session management                                        -->
+<!-- - Auto-redirect if already logged in                                    -->
+<!-- - Demo credentials display for testing                                  -->
+<!-- - Error handling and user feedback                                      -->
+<!-- ======================================================================== -->

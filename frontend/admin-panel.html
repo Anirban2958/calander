@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<!-- ============================================================================ -->
+<!-- BOXO EVENT CALENDAR - ADMIN PANEL -->
+<!-- ============================================================================ -->
+<!-- This page provides administrative functionality for the event calendar: -->
+<!-- 1. Dashboard with event statistics -->
+<!-- 2. Add new events form -->
+<!-- 3. Manage existing events (edit/delete) -->
+<!-- 4. Today's events overview -->
+<!-- 5. System settings configuration -->
+<!-- Access is restricted to authenticated administrators only -->
+<!-- ============================================================================ -->
+<html lang="en">
+<head>
+    <!-- Standard meta tags for proper document structure -->
+    <meta charset="UTF-8">
+    <!-- Responsive design viewport configuration -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page title shown in browser tab -->
+    <title>Admin Panel - Boxo Event Calendar</title>
+    
+    <!-- ===== STYLESHEETS ===== -->
+    <!-- Main application styles -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts - Inter font family for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome icons for UI elements -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Main container with protected content class for admin access control -->
+    <div class="container protected-content">
+        <!-- ===== HEADER SECTION ===== -->
+        <!-- Admin panel header with title and navigation actions -->
+        <header class="header">
+            <div class="header-content">
+                <!-- Admin panel title with settings icon -->
+                <h1><i class="fas fa-cog"></i> Admin Panel</h1>
+                <!-- Header action buttons (admin info, logout, view calendar) -->
+                <div class="header-actions">
+                    <!-- Display current user as admin with shield icon -->
+                    <span class="admin-info">
+                        <i class="fas fa-user-shield"></i> Admin
+                    </span>
+                    <!-- Logout button with sign-out icon -->
+                    <button id="logoutBtn" class="btn btn-outline">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                    <!-- Link to view main calendar -->
+                    <a href="index.html" class="btn btn-outline">
+                        <i class="fas fa-calendar"></i> View Calendar
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- ===== MAIN CONTENT AREA ===== -->
+        <main class="main admin-main">
+            <!-- ===== STATISTICS DASHBOARD SECTION ===== -->
+            <!-- Dashboard showing event counts and statistics -->
+            <div class="admin-section">
+                <h2><i class="fas fa-chart-bar"></i> Dashboard Statistics</h2>
+                <!-- Grid layout for statistics cards -->
+                <div class="stats-grid">
+                    <!-- Total events counter card -->
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <!-- Dynamic count updated by JavaScript -->
+                            <div class="stat-number" id="totalEvents">0</div>
+                            <div class="stat-label">Total Events</div>
+                        </div>
+                    </div>
+                    <!-- Assignments counter card -->
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <!-- Dynamic count updated by JavaScript -->
+                            <div class="stat-number" id="totalAssignments">0</div>
+                            <div class="stat-label">Assignments</div>
+                        </div>
+                    </div>
+                    <!-- Webinars counter card -->
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="stat-info">
+                            <!-- Dynamic count updated by JavaScript -->
+                            <div class="stat-number" id="totalWebinars">0</div>
+                            <div class="stat-label">Webinars</div>
+                        </div>
+                    </div>
+                    <!-- Workshops counter card -->
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="stat-info">
+                            <!-- Dynamic count updated by JavaScript -->
+                            <div class="stat-number" id="totalWorkshops">0</div>
+                            <div class="stat-label">Workshops</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ADD NEW EVENT SECTION ===== -->
+            <!-- Form for creating new calendar events -->
+            <div class="admin-section">
+                <h2><i class="fas fa-plus-circle"></i> Add New Event</h2>
+                <!-- Event creation form - handled by admin-protected.js -->
+                <form id="eventForm" class="event-form">
+                    <!-- Event title input field -->
+                    <div class="form-group">
+                        <label for="eventTitle">Event Title</label>
+                        <input type="text" id="eventTitle" name="title" required>
+                    </div>
+                    
+                    <!-- Event description textarea -->
+                    <div class="form-group">
+                        <label for="eventDescription">Description</label>
+                        <textarea id="eventDescription" name="description" required></textarea>
+                    </div>
+                    
+                    <!-- Date and time inputs in a row layout -->
+                    <div class="form-row">
+                        <!-- Event date picker -->
+                        <div class="form-group">
+                            <label for="eventDate">Date</label>
+                            <input type="date" id="eventDate" name="date" required>
+                        </div>
+                        
+                        <!-- Event time picker -->
+                        <div class="form-group">
+                            <label for="eventTime">Time</label>
+                            <input type="time" id="eventTime" name="time" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Event type selection dropdown -->
+                    <div class="form-group">
+                        <label for="eventType">Event Type</label>
+                        <select id="eventType" name="type" required>
+                            <option value="">Select Type</option>
+                            <!-- Available event types for categorization -->
+                            <option value="assignment">Assignment</option>
+                            <option value="webinar">Webinar</option>
+                            <option value="workshop">Workshop</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Form submit button - text changes for edit mode -->
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <i class="fas fa-save"></i> <span id="submitText">Add Event</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- ===== MANAGE EVENTS SECTION ===== -->
+            <!-- Interface for viewing, searching, editing, and deleting events -->
+            <div class="admin-section">
+                <h2><i class="fas fa-list"></i> Manage Events</h2>
+                <div class="events-management">
+                    <!-- Search functionality for filtering events -->
+                    <div class="search-box">
+                        <input type="text" id="searchEvents" placeholder="Search events...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    
+                    <!-- Container where events list is dynamically populated -->
+                    <div id="adminEventsList" class="admin-events-list">
+                        <!-- Events will be loaded here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== TODAY'S EVENTS SECTION ===== -->
+            <!-- Quick overview of events happening today -->
+            <div class="admin-section">
+                <h2><i class="fas fa-calendar-day"></i> Today's Events</h2>
+                <!-- Container for today's events - populated by JavaScript -->
+                <div id="todaysEvents" class="todays-events-list">
+                    <!-- Default message when no events today -->
+                    <p class="no-events">No events scheduled for today.</p>
+                </div>
+            </div>
+
+            <!-- ===== SYSTEM SETTINGS SECTION ===== -->
+            <!-- Configuration options for the calendar system -->
+            <div class="admin-section">
+                <h2><i class="fas fa-cogs"></i> System Settings</h2>
+                <!-- Settings form - functionality can be expanded as needed -->
+                <form id="settingsForm" class="settings-form">
+                    <!-- Site title configuration -->
+                    <div class="form-group">
+                        <label for="siteTitle">Site Title</label>
+                        <input type="text" id="siteTitle" name="siteTitle" required>
+                    </div>
+                    
+                    <!-- Administrator email configuration -->
+                    <div class="form-group">
+                        <label for="adminEmail">Admin Email</label>
+                        <input type="email" id="adminEmail" name="adminEmail" required>
+                    </div>
+                    
+                    <!-- Timezone selection for event scheduling -->
+                    <div class="form-group">
+                        <label for="timezone">Timezone</label>
+                        <select id="timezone" name="timezone" required>
+                            <option value="">Select Timezone</option>
+                            <!-- Timezone options will be populated by JavaScript -->
+                        </select>
+                    </div>
+                    
+                    <!-- Settings save button -->
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <i class="fas fa-save"></i> <span id="submitSettingsText">Save Settings</span>
+                    </button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- ===== MODAL DIALOGS ===== -->
+    
+    <!-- Confirmation Modal - for delete confirmations and other actions -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <h3>Confirm Action</h3>
+            <!-- Dynamic message populated by JavaScript -->
+            <p id="confirmMessage"></p>
+            <div class="modal-actions">
+                <!-- Confirm action button (dangerous actions) -->
+                <button id="confirmYes" class="btn btn-danger">Yes</button>
+                <!-- Cancel action button -->
+                <button id="confirmNo" class="btn btn-outline">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Access Denied Overlay - shown when user is not authenticated -->
+    <div id="accessDenied" class="access-denied" style="display: none;">
+        <div class="access-denied-content">
+            <!-- Lock icon for security indication -->
+            <i class="fas fa-lock"></i>
+            <h2>Access Denied</h2>
+            <p>You need to be logged in as an administrator to access this page.</p>
+            <!-- Redirect to login page -->
+            <a href="login.html" class="btn btn-primary">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+        </div>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <!-- Admin panel functionality and authentication handling -->
+    <script src="admin-protected.js"></script>
+</body>
+</html>
+<!-- ============================================================================ -->
+<!-- END OF ADMIN PANEL -->
+<!-- ============================================================================ -->
+<!--
+ADMIN PANEL FEATURES:
+1. Authentication Protection: Checks for valid admin token on page load
+2. Dashboard Statistics: Shows counts of different event types
+3. Event Management: Create, edit, delete events
+4. Today's Events: Quick view of current day's schedule
+5. System Settings: Configure calendar parameters
+6. Search Functionality: Filter events by title/description
+7. Confirmation Dialogs: Prevent accidental deletions
+
+SECURITY FEATURES:
+- Token-based authentication required
+- API calls include authorization headers
+- Access denied page for unauthorized users
+- Session verification on page load
+- Automatic logout on token expiration
+
+USER INTERFACE ELEMENTS:
+- Responsive design for all screen sizes
+- Clear visual hierarchy with sections
+- Form validation and error handling
+- Modal dialogs for confirmations
+- Loading states and feedback messages
+- Intuitive icons and color coding
+
+DATA OPERATIONS:
+- Create new events (POST /api/events)
+- Update existing events (PUT /api/events/:id)
+- Delete events (DELETE /api/events/:id)
+- Load all events (GET /api/events)
+- Authentication verification (GET /api/auth/verify)
+- Logout (POST /api/auth/logout)
+
+FORM VALIDATION:
+- Required field validation
+- Date/time format validation
+- Event type selection validation
+- Real-time feedback on form submission
+- Minimum date validation (prevent past dates)
+
+RESPONSIVE BEHAVIOR:
+- Desktop: Full layout with side-by-side forms
+- Tablet: Stacked sections with adjusted spacing
+- Mobile: Single column layout with touch-friendly buttons
+-->

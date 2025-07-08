@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<!-- ============================================================================ -->
+<!-- BOXO EVENT CALENDAR - ADMIN REGISTRATION PAGE -->
+<!-- ============================================================================ -->
+<!-- This page allows new administrators to create accounts for the calendar: -->
+<!-- 1. User registration form with validation -->
+<!-- 2. Password strength requirements display -->
+<!-- 3. Confirm password matching validation -->
+<!-- 4. Account creation and automatic redirect to login -->
+<!-- 5. Links to existing login page -->
+<!-- ============================================================================ -->
+<html lang="en">
+<head>
+    <!-- Standard meta tags for proper document structure -->
+    <meta charset="UTF-8">
+    <!-- Responsive design viewport configuration -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page title shown in browser tab -->
+    <title>Create Admin Account - Boxo Event Calendar</title>
+    
+    <!-- ===== STYLESHEETS ===== -->
+    <!-- Main application styles -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts - Inter font family for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome icons for UI elements -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Main container for registration form -->
+    <div class="login-container">
+        <!-- Registration card with form and navigation -->
+        <div class="login-card">
+            <!-- ===== HEADER SECTION ===== -->
+            <!-- Registration form header with title and description -->
+            <div class="login-header">
+                <!-- User-plus icon to indicate account creation -->
+                <i class="fas fa-user-plus"></i>
+                <h1>Create Admin Account</h1>
+                <p>Register for Boxo Event Calendar Admin Access</p>
+            </div>
+            
+            <!-- ===== REGISTRATION FORM ===== -->
+            <!-- Form for new admin account creation -->
+            <form id="registerForm" class="login-form">
+                <!-- Full name input field -->
+                <div class="form-group has-icon">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+                    <!-- ID card icon for full name field -->
+                    <i class="fas fa-id-card input-icon"></i>
+                </div>
+                
+                <!-- Email address input field -->
+                <div class="form-group has-icon">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+                    <!-- Envelope icon for email field -->
+                    <i class="fas fa-envelope input-icon"></i>
+                </div>
+                
+                <!-- Username input field -->
+                <div class="form-group has-icon">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required placeholder="Choose a username">
+                    <!-- User icon for username field -->
+                    <i class="fas fa-user input-icon"></i>
+                </div>
+                
+                <!-- Password input field with toggle visibility -->
+                <div class="form-group has-icon has-password">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Create a strong password" minlength="6">
+                    <!-- Lock icon for password field -->
+                    <i class="fas fa-lock input-icon"></i>
+                    <!-- Toggle button to show/hide password -->
+                    <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                        <i class="fas fa-eye" id="passwordIcon"></i>
+                    </button>
+                </div>
+                
+                <!-- Confirm password input field with toggle visibility -->
+                <div class="form-group has-icon has-password">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password" minlength="6">
+                    <!-- Lock icon for confirm password field -->
+                    <i class="fas fa-lock input-icon"></i>
+                    <!-- Toggle button to show/hide confirm password -->
+                    <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
+                        <i class="fas fa-eye" id="confirmPasswordIcon"></i>
+                    </button>
+                </div>
+                
+                <!-- ===== PASSWORD REQUIREMENTS SECTION ===== -->
+                <!-- Display password requirements for user guidance -->
+                <div class="password-requirements">
+                    <h4><i class="fas fa-shield-alt"></i> Password Requirements</h4>
+                    <ul>
+                        <!-- Minimum length requirement -->
+                        <li>At least 6 characters long</li>
+                    </ul>
+                </div>
+                
+                <!-- Form submission button -->
+                <button type="submit" class="btn btn-primary btn-full">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+            </form>
+            
+            <!-- ===== AUTHENTICATION LINKS ===== -->
+            <!-- Links to existing account login -->
+            <div class="auth-links">
+                <p>Already have an admin account?</p>
+                <a href="login.html">Login Here</a>
+            </div>
+            
+            <!-- ===== NAVIGATION FOOTER ===== -->
+            <!-- Link back to main calendar view -->
+            <div class="login-footer">
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Calendar
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== JAVASCRIPT FUNCTIONALITY ===== -->
+    <script>
+        /**
+         * Toggle password visibility for specific field
+         * @param {string} fieldId - ID of the password field to toggle
+         */
+        function togglePassword(fieldId) {
+            // Get password input and its corresponding icon
+            const passwordInput = document.getElementById(fieldId);
+            const passwordIcon = document.getElementById(fieldId + 'Icon');
+            
+            if (passwordInput.type === 'password') {
+                // Show password - change to text type and update icon
+                passwordInput.type = 'text';
+                passwordIcon.className = 'fas fa-eye-slash';
+            } else {
+                // Hide password - change to password type and update icon
+                passwordInput.type = 'password';
+                passwordIcon.className = 'fas fa-eye';
+            }
+        }
+
+        /**
+         * Handle registration form submission
+         * Validates data and sends registration request to backend
+         */
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent default form submission
+            
+            // Extract form data into object
+            const formData = new FormData(e.target);
+            const userData = {
+                fullName: formData.get('fullName').trim(),       // Remove whitespace
+                email: formData.get('email').trim(),             // Remove whitespace
+                username: formData.get('username').trim(),       // Remove whitespace
+                password: formData.get('password'),
+                confirmPassword: formData.get('confirmPassword')
+            };
+            
+            // Validate form data before submission
+            if (!validateForm(userData)) {
+                return; // Stop if validation fails
+            }
+            
+            try {
+                // Send registration request to backend
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    // Registration successful - show success message and redirect
+                    showSuccess('Account created successfully! Redirecting to login...');
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000); // Wait 2 seconds before redirect
+                } else {
+                    // Registration failed - show error message
+                    showError(result.error || 'Registration failed');
+                }
+            } catch (error) {
+                // Network or other error
+                showError('Registration failed. Please try again.');
+            }
+        });
+        
+        /**
+         * Validate registration form data
+         * @param {Object} data - User data object with all form fields
+         * @returns {boolean} True if validation passes, false otherwise
+         */
+        function validateForm(data) {
+            // Check full name is provided
+            if (!data.fullName) {
+                showError('Please enter your full name');
+                return false;
+            }
+            
+            // Check email is valid
+            if (!data.email || !isValidEmail(data.email)) {
+                showError('Please enter a valid email address');
+                return false;
+            }
+            
+            // Check username meets minimum length
+            if (!data.username || data.username.length < 3) {
+                showError('Username must be at least 3 characters long');
+                return false;
+            }
+            
+            // Check password meets minimum length
+            if (!data.password || data.password.length < 6) {
+                showError('Password must be at least 6 characters long');
+                return false;
+            }
+            
+            // Check passwords match
+            if (data.password !== data.confirmPassword) {
+                showError('Passwords do not match');
+                return false;
+            }
+            
+            return true; // All validations passed
+        }
+        
+        /**
+         * Validate email format using regex
+         * @param {string} email - Email address to validate
+         * @returns {boolean} True if email format is valid
+         */
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        /**
+         * Show error message to user
+         * @param {string} message - Error message to display
+         */
+        function showError(message) {
+            showMessage(message, 'error');
+        }
+        
+        /**
+         * Show success message to user
+         * @param {string} message - Success message to display
+         */
+        function showSuccess(message) {
+            showMessage(message, 'success');
+        }
+        
+        /**
+         * Show message with specified type
+         * @param {string} message - Message text to display
+         * @param {string} type - Type of message ('error' or 'success')
+         */
+        function showMessage(message, type) {
+            // Remove any existing message
+            const existingMessage = document.querySelector('.error-message, .success-message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            // Create new message element
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `${type}-message`;
+            messageDiv.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i> ${message}`;
+            
+            // Insert message at top of form
+            const form = document.getElementById('registerForm');
+            form.insertBefore(messageDiv, form.firstChild);
+            
+            // Auto-remove message after 5 seconds
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

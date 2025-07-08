@@ -1,0 +1,1243 @@
+/*
+==============================================================================
+BOXO EVENT CALENDAR - MAIN STYLESHEET
+==============================================================================
+This CSS file provides all styling for the Boxo Event Calendar application:
+1. Global reset and base styles
+2. Layout components (header, main, containers)
+3. Typography and color scheme
+4. Interactive elements (buttons, forms, modals)
+5. Calendar grid and event display
+6. Admin panel specific styles
+7. Authentication pages styling
+8. Responsive design and animations
+==============================================================================
+*/
+
+/* ===== RESET AND BASE STYLES ===== */
+/* Universal reset to ensure consistent styling across browsers */
+* {
+    margin: 0;                    /* Remove default margins */
+    padding: 0;                   /* Remove default padding */
+    box-sizing: border-box;       /* Include padding and border in element's total width/height */
+}
+
+/* Global body styling with gradient background and Inter font */
+body {
+    font-family: 'Inter', sans-serif;                                    /* Modern, clean font from Google Fonts */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);      /* Purple gradient background */
+    min-height: 100vh;                                                   /* Full viewport height minimum */
+    color: #333;                                                         /* Dark text color */
+    line-height: 1.6;                                                    /* Improved readability */
+}
+
+/* Main container for content with responsive max width */
+.container {
+    max-width: 1200px;           /* Maximum width for large screens */
+    margin: 0 auto;              /* Center container horizontally */
+    padding: 20px;               /* Internal spacing */
+}
+
+/* ===== HEADER STYLES ===== */
+/* Main header with glassmorphism effect */
+.header {
+    background: rgba(255, 255, 255, 0.95);    /* Semi-transparent white background */
+    backdrop-filter: blur(10px);               /* Modern blur effect */
+    border-radius: 20px;                       /* Rounded corners */
+    padding: 30px;                             /* Internal spacing */
+    margin-bottom: 30px;                       /* Space below header */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Header content layout using flexbox */
+.header-content {
+    display: flex;                  /* Flexbox layout */
+    justify-content: space-between; /* Space items apart */
+    align-items: center;            /* Vertical center alignment */
+    flex-wrap: wrap;                /* Allow wrapping on small screens */
+    gap: 20px;                      /* Space between items */
+}
+
+/* Main heading styling with icon support */
+.header h1 {
+    font-size: 2.5rem;              /* Large, prominent text */
+    font-weight: 700;               /* Bold weight */
+    color: #4a5568;                 /* Neutral gray color */
+    display: flex;                  /* Flexbox for icon alignment */
+    align-items: center;            /* Vertical center alignment */
+    gap: 15px;                      /* Space between icon and text */
+}
+
+/* Icon styling within headings */
+.header h1 i {
+    color: #667eea;                 /* Brand color for icons */
+}
+
+/* Header actions (buttons, links) styling */
+.header-actions {
+    display: flex;    /* Flexbox layout */
+    gap: 15px;        /* Space between actions */
+    align-items: center; /* Vertical center alignment */
+}
+
+/* Admin Header Info */
+.admin-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #4a5568;
+    font-weight: 500;
+    background: #f7fafc;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 2px solid #e2e8f0;
+}
+
+.admin-info i {
+    color: #48bb78;
+}
+
+/* ===== BUTTON STYLES ===== */
+/* Base button styles */
+.btn {
+    padding: 12px 24px;            /* Internal padding */
+    border: none;                  /* No border */
+    border-radius: 12px;           /* Rounded corners */
+    font-weight: 500;               /* Medium bold text */
+    text-decoration: none;         /* Remove underline from links */
+    display: inline-flex;          /* Flexbox for alignment */
+    align-items: center;          /* Vertical center alignment */
+    gap: 8px;                      /* Space between icon and text */
+    cursor: pointer;               /* Pointer cursor on hover */
+    transition: all 0.3s ease;     /* Smooth transition for hover effects */
+    font-size: 14px;               /* Font size */
+}
+
+/* Primary button styles */
+.btn-primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);    /* Gradient background */
+    color: white;                 /* White text color */
+}
+
+/* Primary button hover effect */
+.btn-primary:hover {
+    transform: translateY(-2px);  /* Lift effect */
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4); /* Shadow on hover */
+}
+
+/* Outline button styles */
+.btn-outline {
+    background: white;            /* White background */
+    color: #667eea;               /* Brand color */
+    border: 2px solid #667eea;   /* Border with brand color */
+}
+
+/* Outline button hover effect */
+.btn-outline:hover {
+    background: #667eea;          /* Brand color background */
+    color: white;                 /* White text color */
+    transform: translateY(-2px);  /* Lift effect */
+}
+
+/* Danger button styles */
+.btn-danger {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);    /* Gradient background */
+    color: white;                 /* White text color */
+}
+
+/* Danger button hover effect */
+.btn-danger:hover {
+    transform: translateY(-2px);  /* Lift effect */
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4); /* Shadow on hover */
+}
+
+/* Full-width button style */
+.btn-full {
+    width: 100%;                  /* Full width */
+    justify-content: center;      /* Center content */
+}
+
+/* ===== MAIN CONTENT ===== */
+/* Main content area styling */
+.main {
+    background: rgba(255, 255, 255, 0.95);    /* Semi-transparent white background */
+    backdrop-filter: blur(10px);               /* Modern blur effect */
+    border-radius: 20px;                       /* Rounded corners */
+    padding: 30px;                             /* Internal spacing */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* ===== CONTROLS SECTION ===== */
+/* Controls section (filters, buttons) styling */
+.controls {
+    margin-bottom: 30px;           /* Space below section */
+}
+
+/* Filter section title styling */
+.filter-section h3 {
+    margin-bottom: 15px;           /* Space below title */
+    color: #4a5568;                 /* Dark gray color */
+    display: flex;                  /* Flexbox for alignment */
+    align-items: center;            /* Vertical center alignment */
+    gap: 10px;                      /* Space between icon and text */
+}
+
+/* Filter buttons container styling */
+.filter-buttons {
+    display: flex;                  /* Flexbox layout */
+    gap: 10px;                    /* Space between buttons */
+    flex-wrap: wrap;              /* Wrap buttons on small screens */
+}
+
+/* Individual filter button styling */
+.filter-btn {
+    padding: 10px 20px;            /* Internal padding */
+    border: 2px solid #e2e8f0;     /* Light gray border */
+    background: white;            /* White background */
+    border-radius: 25px;           /* Pill-shaped buttons */
+    cursor: pointer;               /* Pointer cursor on hover */
+    transition: all 0.3s ease;     /* Smooth transition for hover effects */
+    font-weight: 500;               /* Medium bold text */
+}
+
+/* Filter button hover and active state */
+.filter-btn:hover,
+.filter-btn.active {
+    background: #667eea;          /* Brand color background */
+    color: white;                 /* White text color */
+    border-color: #667eea;        /* Border with brand color */
+    transform: translateY(-2px);  /* Lift effect */
+}
+
+/* ===== CALENDAR STYLES ===== */
+/* Calendar container styling */
+.calendar-container {
+    margin-bottom: 30px;           /* Space below calendar */
+}
+
+/* Calendar header styling */
+.calendar-header {
+    display: flex;                  /* Flexbox layout */
+    justify-content: between;      /* Space between title and buttons */
+    align-items: center;            /* Vertical center alignment */
+    margin-bottom: 20px;           /* Space below header */
+    padding: 0 10px;               /* Horizontal padding */
+}
+
+/* Calendar title styling */
+.calendar-header h2 {
+    font-size: 1.8rem;              /* Large title text */
+    color: #4a5568;                 /* Dark gray color */
+    font-weight: 600;               /* Semi-bold weight */
+    flex: 1;                        /* Take up available space */
+    text-align: center;            /* Centered text */
+}
+
+/* Navigation button styling (prev/next month) */
+.nav-btn {
+    background: #667eea;            /* Brand color background */
+    color: white;                 /* White text color */
+    border: none;                  /* No border */
+    width: 40px;                   /* Fixed width */
+    height: 40px;                  /* Fixed height */
+    border-radius: 50%;             /* Circular buttons */
+    cursor: pointer;               /* Pointer cursor on hover */
+    transition: all 0.3s ease;     /* Smooth transition for hover effects */
+    display: flex;                  /* Flexbox for icon alignment */
+    align-items: center;            /* Vertical center alignment */
+    justify-content: center;        /* Centered icon */
+}
+
+/* Navigation button hover effect */
+.nav-btn:hover {
+    background: #5a67d8;            /* Darker shade on hover */
+    transform: scale(1.1);         /* Slightly enlarge on hover */
+}
+
+/* Calendar grid styling */
+.calendar-grid {
+    display: grid;                  /* CSS Grid layout */
+    grid-template-columns: repeat(7, 1fr);    /* Seven equal columns */
+    gap: 1px;                      /* Gap between grid items */
+    background: #e2e8f0;           /* Light gray background */
+    border-radius: 12px;           /* Rounded corners */
+    overflow: hidden;              /* Clip overflowed content */
+}
+
+/* Day header styling (Mon, Tue, etc.) */
+.day-header {
+    background: #4a5568;            /* Dark gray background */
+    color: white;                 /* White text color */
+    padding: 15px;                 /* Internal padding */
+    text-align: center;            /* Centered text */
+    font-weight: 600;               /* Semi-bold weight */
+    font-size: 14px;               /* Font size */
+}
+
+/* Individual calendar day styling */
+.calendar-day {
+    background: white;            /* White background */
+    padding: 15px 10px;            /* Internal padding */
+    min-height: 80px;             /* Minimum height */
+    cursor: pointer;               /* Pointer cursor on hover */
+    transition: all 0.3s ease;     /* Smooth transition for hover effects */
+    position: relative;            /* Position for pseudo-elements */
+    display: flex;                  /* Flexbox layout */
+    flex-direction: column;        /* Column direction for content */
+}
+
+/* Calendar day hover effect */
+.calendar-day:hover {
+    background: #f7fafc;            /* Light gray background on hover */
+}
+
+/* Styling for days not in the current month */
+.calendar-day.other-month {
+    background: #f8f9fa;            /* Very light gray background */
+    color: #a0aec0;                 /* Light gray text color */
+}
+
+/* Today's date highlight */
+.calendar-day.today {
+    background: linear-gradient(135deg, #667eea, #764ba2);    /* Gradient background */
+    color: white;                 /* White text color */
+}
+
+/* Indicator for days with events */
+.calendar-day.has-events::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 8px;
+    height: 8px;
+    background: #48bb78;          /* Green indicator dot */
+    border-radius: 50%;           /* Circular dot */
+}
+
+/* Day number styling within calendar days */
+.day-number {
+    font-weight: 500;               /* Medium bold weight */
+    margin-bottom: 5px;             /* Space below day number */
+}
+
+/* Events container within a day */
+.day-events {
+    display: flex;                  /* Flexbox layout */
+    flex-direction: column;        /* Column direction for events */
+    gap: 2px;                      /* Space between events */
+    overflow: hidden;              /* Clip overflowed content */
+}
+
+/* Individual event styling within a day */
+.day-event {
+    font-size: 11px;                /* Small font size */
+    padding: 2px 4px;              /* Internal padding */
+    border-radius: 3px;             /* Rounded corners */
+    background: rgba(102, 126, 234, 0.1);    /* Light blue background */
+    color: #667eea;                 /* Brand color */
+    white-space: nowrap;            /* No wrapping, single line */
+    overflow: hidden;              /* Clip overflowed content */
+    text-overflow: ellipsis;      /* Ellipsis for overflowed text */
+}
+
+/* Assignment event type styling */
+.day-event.assignment {
+    background: rgba(255, 107, 107, 0.1);    /* Light red background */
+    color: #ff6b6b;                 /* Red text color */
+}
+
+/* Webinar event type styling */
+.day-event.webinar {
+    background: rgba(72, 187, 120, 0.1);    /* Light green background */
+    color: #48bb78;                 /* Green text color */
+}
+
+/* Workshop event type styling */
+.day-event.workshop {
+    background: rgba(237, 137, 54, 0.1);    /* Light orange background */
+    color: #ed8936;                 /* Orange text color */
+}
+
+/* ===== EVENTS SECTION ===== */
+/* Events section title styling */
+.events-section h3 {
+    margin-bottom: 20px;           /* Space below title */
+    color: #4a5568;                 /* Dark gray color */
+    display: flex;                  /* Flexbox for alignment */
+    align-items: center;            /* Vertical center alignment */
+    gap: 10px;                      /* Space between icon and text */
+}
+
+/* Events list container styling */
+.events-list {
+    display: grid;                  /* CSS Grid layout */
+    gap: 15px;                    /* Space between event cards */
+}
+
+/* Individual event card styling */
+.event-card {
+    background: white;            /* White background */
+    border: 2px solid #e2e8f0;     /* Light gray border */
+    border-radius: 12px;           /* Rounded corners */
+    padding: 20px;                 /* Internal padding */
+    transition: all 0.3s ease;     /* Smooth transition for hover effects */
+    cursor: pointer;               /* Pointer cursor on hover */
+    position: relative;            /* Position for pseudo-elements */
+    overflow: hidden;              /* Clip overflowed content */
+}
+
+/* Event card left border indicator */
+.event-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #667eea;          /* Brand color */
+}
+
+/* Assignment event card color */
+.event-card.assignment::before {
+    background: #ff6b6b;          /* Red color */
+}
+
+/* Webinar event card color */
+.event-card.webinar::before {
+    background: #48bb78;          /* Green color */
+}
+
+/* Workshop event card color */
+.event-card.workshop::before {
+    background: #ed8936;          /* Orange color */
+}
+
+/* Event card hover effect */
+.event-card:hover {
+    transform: translateY(-3px);  /* Lift effect */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Shadow on hover */
+    border-color: #667eea;        /* Border with brand color on hover */
+}
+
+/* Event header section (title, date, actions) */
+.event-header {
+    display: flex;                  /* Flexbox layout */
+    justify-content: space-between; /* Space between title and actions */
+    align-items: flex-start;        /* Align items to top */
+    margin-bottom: 10px;           /* Space below header */
+}
+
+/* Event title styling */
+.event-title {
+    font-size: 1.2rem;              /* Medium-large text */
+    font-weight: 600;               /* Semi-bold weight */
+    color: #2d3748;                 /* Dark gray color */
+    margin-bottom: 5px;             /* Space below title */
+}
+
+/* Icon spacing in event title */
+.event-title i {
+    margin-right: 8px;              /* Space between icon and text */
+    opacity: 0.8;                  /* Slightly transparent */
+}
+
+/* Assignment event title color */
+.event-card.assignment .event-title i {
+    color: #ff6b6b;                 /* Red color */
+}
+
+/* Webinar event title color */
+.event-card.webinar .event-title i {
+    color: #48bb78;                 /* Green color */
+}
+
+/* Workshop event title color */
+.event-card.workshop .event-title i {
+    color: #ed8936;                 /* Orange color */
+}
+
+/* Event type badge styling */
+.event-type {
+    padding: 4px 12px;            /* Internal padding */
+    border-radius: 15px;           /* Pill-shaped badges */
+    font-size: 12px;               /* Small font size */
+    font-weight: 500;               /* Medium bold text */
+    text-transform: uppercase;      /* Uppercase text */
+    background: #667eea;            /* Brand color background */
+    color: white;                 /* White text color */
+}
+
+/* Assignment event type badge color */
+.event-type.assignment {
+    background: #ff6b6b;          /* Red color */
+}
+
+/* Webinar event type badge color */
+.event-type.webinar {
+    background: #48bb78;          /* Green color */
+}
+
+/* Workshop event type badge color */
+.event-type.workshop {
+    background: #ed8936;          /* Orange color */
+}
+
+/* Event date and time information styling */
+.event-datetime {
+    display: flex;                  /* Flexbox layout */
+    align-items: center;            /* Vertical center alignment */
+    gap: 15px;                    /* Space between date and time */
+    color: #718096;                 /* Light gray color */
+    font-size: 14px;               /* Font size */
+    margin-bottom: 10px;           /* Space below datetime info */
+}
+
+/* Event description styling */
+.event-description {
+    color: #4a5568;                 /* Dark gray color */
+    line-height: 1.5;              /* Line height for readability */
+}
+
+/* ===== MODAL STYLES ===== */
+/* Modal background overlay styling */
+.modal {
+    display: none;                  /* Hidden by default */
+    position: fixed;                /* Fixed position */
+    z-index: 9999;                 /* High z-index to overlay other content */
+    left: 0;
+    top: 0;
+    width: 100%;                  /* Full width */
+    height: 100%;                 /* Full height */
+    background: rgba(0, 0, 0, 0.5);    /* Semi-transparent black background */
+    backdrop-filter: blur(5px);     /* Blur effect for background content */
+}
+
+/* Modal content box styling */
+.modal-content {
+    background: white;            /* White background */
+    margin: 10% auto;              /* Centered with margin */
+    padding: 30px;                 /* Internal padding */
+    border-radius: 20px;           /* Rounded corners */
+    width: 90%;                  /* Responsive width */
+    max-width: 500px;             /* Maximum width */
+    position: relative;            /* Position for pseudo-elements */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+    z-index: 10000;               /* Higher than modal background */
+}
+
+/* Modal header styling */
+.modal-content h3 {
+    margin-bottom: 15px;           /* Space below title */
+    color: #2d3748;                 /* Dark gray color */
+    font-size: 1.5rem;             /* Large title text */
+}
+
+/* Modal paragraph text styling */
+.modal-content p {
+    margin-bottom: 20px;           /* Space below paragraph */
+    color: #4a5568;                 /* Dark gray color */
+    line-height: 1.6;              /* Line height for readability */
+}
+
+/* Modal close button styling */
+.close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 24px;               /* Large close icon */
+    cursor: pointer;               /* Pointer cursor on hover */
+    color: #a0aec0;                 /* Light gray color */
+    transition: color 0.3s ease;   /* Smooth color transition */
+}
+
+/* Close button hover effect */
+.close:hover {
+    color: #4a5568;                 /* Dark gray color on hover */
+}
+
+/* ===== ADMIN STYLES ===== */
+/* Admin main layout styling */
+.admin-main {
+    display: grid;                  /* CSS Grid layout */
+    gap: 30px;                    /* Space between sections */
+}
+
+/* Individual admin section styling */
+.admin-section {
+    background: white;            /* White background */
+    padding: 30px;                 /* Internal padding */
+    border-radius: 15px;           /* Rounded corners */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Admin section title styling */
+.admin-section h2 {
+    margin-bottom: 25px;           /* Space below title */
+    color: #4a5568;                 /* Dark gray color */
+    display: flex;                  /* Flexbox for alignment */
+    align-items: center;            /* Vertical center alignment */
+    gap: 10px;                      /* Space between icon and text */
+}
+
+/* ===== FORM STYLES ===== */
+/* Event form layout styling */
+.event-form {
+    display: grid;                  /* CSS Grid layout */
+    gap: 20px;                    /* Space between form fields */
+}
+
+/* Form row styling for two-column layout */
+.form-row {
+    display: grid;                  /* CSS Grid layout */
+    grid-template-columns: 1fr 1fr;    /* Two equal columns */
+    gap: 20px;                    /* Space between columns */
+}
+
+/* Resizable textarea styling */
+.form-group textarea {
+    resize: vertical;              /* Vertical resizing only */
+    min-height: 100px;             /* Minimum height */
+}
+
+/* ===== SEARCH BOX ===== */
+/* Search box container styling */
+.search-box {
+    position: relative;            /* Position for absolute icon */
+    margin-bottom: 20px;           /* Space below search box */
+}
+
+/* Search box input field styling */
+.search-box input {
+    width: 100%;                  /* Full width */
+    padding: 12px 16px 12px 45px;    /* Internal padding with left icon space */
+    border: 2px solid #e2e8f0;     /* Light gray border */
+    border-radius: 25px;           /* Pill-shaped input */
+    font-size: 14px;               /* Font size */
+}
+
+/* Search box icon styling */
+.search-box i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);    /* Center icon vertically */
+    color: #a0aec0;                 /* Light gray color */
+}
+
+/* ===== ADMIN EVENTS LIST ===== */
+/* Admin events list container styling */
+.admin-events-list {
+    display: grid;                  /* CSS Grid layout */
+    gap: 15px;                    /* Space between event cards */
+}
+
+/* Individual admin event card styling */
+.admin-event-card {
+    background: #f7fafc;            /* Very light gray background */
+    border: 2px solid #e2e8f0;     /* Light gray border */
+    border-radius: 12px;           /* Rounded corners */
+    padding: 20px;                 /* Internal padding */
+    display: grid;                  /* CSS Grid layout */
+    grid-template-columns: 1fr auto;    /* Two columns: content and actions */
+    gap: 20px;                    /* Space between columns */
+    align-items: center;            /* Vertical center alignment */
+}
+
+/* Admin event title styling */
+.admin-event-info h4 {
+    color: #2d3748;                 /* Dark gray color */
+    margin-bottom: 5px;             /* Space below title */
+    font-size: 1.1rem;             /* Medium-large text */
+}
+
+/* Admin event metadata styling (date, time, etc.) */
+.admin-event-meta {
+    display: flex;                  /* Flexbox layout */
+    gap: 15px;                    /* Space between metadata items */
+    color: #718096;                 /* Light gray color */
+    font-size: 14px;               /* Font size */
+    margin-bottom: 8px;             /* Space below metadata */
+}
+
+/* Admin event actions (buttons) styling */
+.admin-event-actions {
+    display: flex;                  /* Flexbox layout */
+    gap: 10px;                    /* Space between actions */
+}
+
+/* Small button styling for admin panel */
+.btn-small {
+    padding: 8px 16px;            /* Internal padding */
+    font-size: 12px;               /* Small font size */
+}
+
+/* Modal actions (buttons) in admin panel styling */
+.modal-actions {
+    display: flex;                  /* Flexbox layout */
+    gap: 15px;                    /* Space between buttons */
+    justify-content: flex-end;      /* Align to right */
+    margin-top: 20px;               /* Space above actions */
+}
+
+/* ===== LOGIN PAGE STYLES ===== */
+/* Login container styling (full viewport height) */
+.login-container {
+    min-height: 100vh;             /* Full viewport height */
+    display: flex;                  /* Flexbox layout */
+    align-items: center;            /* Vertical center alignment */
+    justify-content: center;        /* Center content */
+    padding: 20px;                 /* Internal padding */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);    /* Purple gradient background */
+}
+
+/* Login card (form container) styling */
+.login-card {
+    background: rgba(255, 255, 255, 0.95);    /* Semi-transparent white background */
+    backdrop-filter: blur(10px);               /* Modern blur effect */
+    border-radius: 20px;                       /* Rounded corners */
+    padding: 40px;                             /* Internal padding */
+    width: 100%;                              /* Full width */
+    max-width: 450px;                         /* Maximum width */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+    text-align: center;                      /* Centered text */
+}
+
+/* Login header section styling */
+.login-header {
+    margin-bottom: 30px;                   /* Space below header */
+}
+
+/* Login icon styling */
+.login-header i {
+    font-size: 3rem;                       /* Large icon */
+    color: #667eea;                        /* Brand color */
+    margin-bottom: 20px;                   /* Space below icon */
+}
+
+/* Login title styling */
+.login-header h1 {
+    font-size: 2rem;                       /* Medium-large text */
+    color: #4a5568;                        /* Dark gray color */
+    margin-bottom: 10px;                   /* Space below title */
+}
+
+/* Login subtitle or description styling */
+.login-header p {
+    color: #718096;                        /* Light gray color */
+    margin-bottom: 0;                     /* No margin below */
+}
+
+/* Login form layout styling */
+.login-form {
+    display: flex;                          /* Flexbox layout */
+    flex-direction: column;                /* Column direction for fields */
+    gap: 20px;                            /* Space between fields */
+    margin-bottom: 20px;                   /* Space below form */
+}
+
+/* Individual form group styling */
+.form-group {
+    position: relative;                    /* Position for absolute icons */
+    text-align: left;                    /* Left-aligned text */
+    margin-bottom: 20px;                   /* Space below form group */
+}
+
+/* Form label styling */
+.form-group label {
+    display: block;                       /* Block display for labels */
+    margin-bottom: 8px;                   /* Space below label */
+    font-weight: 500;                     /* Medium bold text */
+    color: #4a5568;                       /* Dark gray color */
+    font-size: 14px;                     /* Font size */
+}
+
+/* Form input, textarea, and select styling */
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;                          /* Full width */
+    padding: 14px 16px;                  /* Internal padding */
+    border: 2px solid #e2e8f0;           /* Light gray border */
+    border-radius: 12px;                 /* Rounded corners */
+    font-size: 16px;                     /* Font size */
+    transition: all 0.3s ease;           /* Smooth transition for focus effects */
+    background: white;                  /* White background */
+    box-sizing: border-box;               /* Include padding and border in element's total width/height */
+    outline: none;                       /* Remove default outline */
+    font-family: inherit;                /* Inherit font from parent */
+    color: #2d3748;                     /* Dark gray text color */
+}
+
+/* Placeholder text styling in form fields */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #a0aec0;                      /* Light gray color */
+    font-size: 15px;                    /* Font size */
+}
+
+/* Focused state styling for form fields */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #667eea;              /* Brand color border */
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); /* Glow effect */
+}
+
+/* Input fields with icons */
+.form-group.has-icon {
+    position: relative;                  /* Position for absolute icon */
+}
+
+/* Input field with left icon padding */
+.form-group.has-icon input {
+    padding-left: 45px;                 /* Space for icon */
+    position: relative;                  /* Position for absolute icon */
+}
+
+/* Icon styling within input fields */
+.form-group.has-icon .input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);        /* Center icon vertically */
+    color: #a0aec0;                      /* Light gray color */
+    z-index: 10;                        /* Above other content */
+    font-size: 16px;                   /* Font size */
+    pointer-events: none;              /* Ignore pointer events */
+    display: flex;                      /* Flexbox for icon alignment */
+    align-items: center;                /* Vertical center alignment */
+    height: 20px;                      /* Fixed height */
+    line-height: 1;                    /* Line height */
+    margin-top: 14px;                  /* Space above icon */
+}
+
+/* Password fields with toggle button */
+.form-group.has-password input {
+    padding-right: 50px;                /* Space for toggle button */
+    position: relative;                  /* Position for absolute toggle button */
+}
+
+/* Password toggle button styling */
+.form-group.has-password .password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);        /* Center button vertically */
+    background: none;                  /* No background */
+    border: none;                      /* No border */
+    color: #a0aec0;                    /* Light gray color */
+    cursor: pointer;                   /* Pointer cursor on hover */
+    z-index: 10;                      /* Above other content */
+    font-size: 16px;                   /* Font size */
+    padding: 5px;                      /* Internal padding */
+    display: flex;                      /* Flexbox for icon alignment */
+    align-items: center;                /* Vertical center alignment */
+    justify-content: center;            /* Centered icon */
+    height: 20px;                      /* Fixed height */
+    width: 20px;                      /* Fixed width */
+    line-height: 1;                    /* Line height */
+    margin-top: 14px;                  /* Space above button */
+}
+
+/* Password toggle button hover effect */
+.form-group .password-toggle:hover {
+    color: #667eea;                    /* Darker shade on hover */
+}
+
+/* Login footer (links, etc.) styling */
+.login-footer {
+    text-align: center;                /* Centered text */
+    margin-top: 20px;                 /* Space above footer */
+}
+
+/* Back link styling (to return to previous page) */
+.back-link {
+    color: #667eea;                    /* Brand color */
+    text-decoration: none;             /* No underline */
+    display: inline-flex;              /* Flexbox for alignment */
+    align-items: center;                /* Vertical center alignment */
+    gap: 8px;                          /* Space between icon and text */
+    font-weight: 500;                 /* Medium bold text */
+    transition: color 0.3s ease;       /* Smooth color transition */
+}
+
+/* Back link hover effect */
+.back-link:hover {
+    color: #5a67d8;                    /* Darker shade on hover */
+}
+
+/* Demo credentials box styling */
+.demo-credentials {
+    background: #f7fafc;                /* Very light gray background */
+    border: 2px solid #e2e8f0;         /* Light gray border */
+    border-radius: 12px;               /* Rounded corners */
+    padding: 20px;                     /* Internal padding */
+    margin-top: 20px;                   /* Space above box */
+    text-align: left;                  /* Left-aligned text */
+}
+
+/* Demo credentials title styling */
+.demo-credentials h4 {
+    color: #4a5568;                     /* Dark gray color */
+    margin-bottom: 10px;                 /* Space below title */
+    display: flex;                      /* Flexbox for alignment */
+    align-items: center;                /* Vertical center alignment */
+    gap: 8px;                          /* Space between icon and text */
+}
+
+/* Demo credentials paragraph styling */
+.demo-credentials p {
+    margin: 5px 0;
+    color: #718096;                    /* Light gray color */
+    font-size: 14px;                   /* Font size */
+}
+
+/* Demo credentials strong text styling */
+.demo-credentials strong {
+    color: #4a5568;                     /* Dark gray color */
+}
+
+/* Authentication links section styling */
+.auth-links {
+    text-align: center;                /* Centered text */
+    margin-top: 20px;                 /* Space above section */
+    padding-top: 20px;                 /* Padding above content */
+    border-top: 1px solid #e2e8f0;     /* Top border */
+}
+
+/* Authentication links paragraph styling */
+.auth-links p {
+    color: #718096;                    /* Light gray color */
+    margin-bottom: 10px;               /* Space below paragraph */
+}
+
+/* Authentication links (login, register) styling */
+.auth-links a {
+    color: #667eea;                    /* Brand color */
+    text-decoration: none;             /* No underline */
+    font-weight: 500;                 /* Medium bold text */
+}
+
+/* Authentication links hover effect */
+.auth-links a:hover {
+    color: #5a67d8;                    /* Darker shade on hover */
+    text-decoration: underline;        /* Underline on hover */
+}
+
+/* Error message styling */
+.error-message {
+    background: #fed7d7;                /* Light red background */
+    border: 1px solid #feb2b2;         /* Red border */
+    color: #c53030;                    /* Dark red text color */
+    padding: 12px;                     /* Internal padding */
+    border-radius: 8px;               /* Rounded corners */
+    margin-bottom: 20px;               /* Space below message */
+    display: flex;                    /* Flexbox layout */
+    align-items: center;              /* Vertical center alignment */
+    gap: 8px;                        /* Space between icon and text */
+    font-weight: 500;                 /* Medium bold text */
+}
+
+/* Success message styling */
+.success-message {
+    background: #c6f6d5;                /* Light green background */
+    border: 1px solid #9ae6b4;         /* Green border */
+    color: #2f855a;                    /* Dark green text color */
+    padding: 12px;                     /* Internal padding */
+    border-radius: 8px;               /* Rounded corners */
+    margin-bottom: 20px;               /* Space below message */
+    display: flex;                    /* Flexbox layout */
+    align-items: center;              /* Vertical center alignment */
+    gap: 8px;                        /* Space between icon and text */
+    font-weight: 500;                 /* Medium bold text */
+}
+
+/* ===== PROTECTED CONTENT STYLES ===== */
+/* Protected content wrapper styling */
+.protected-content {
+    position: relative;                /* Position for overlay */
+}
+
+/* Access denied overlay styling */
+.access-denied {
+    position: fixed;                  /* Fixed position to cover viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);    /* Semi-transparent black background */
+    display: flex;                  /* Flexbox layout */
+    align-items: center;              /* Vertical center alignment */
+    justify-content: center;          /* Center content */
+    z-index: 9999;                   /* High z-index to overlay other content */
+}
+
+/* Access denied content box styling */
+.access-denied-content {
+    background: white;                /* White background */
+    padding: 40px;                   /* Internal padding */
+    border-radius: 20px;             /* Rounded corners */
+    text-align: center;              /* Centered text */
+    max-width: 400px;                 /* Maximum width */
+    margin: 20px;                   /* Margin around box */
+}
+
+/* Access denied icon styling */
+.access-denied-content i {
+    font-size: 3rem;                 /* Large icon */
+    color: #f56565;                  /* Red color */
+    margin-bottom: 20px;             /* Space below icon */
+}
+
+/* Access denied title styling */
+.access-denied-content h2 {
+    color: #2d3748;                   /* Dark gray color */
+    margin-bottom: 15px;             /* Space below title */
+}
+
+/* Access denied paragraph styling */
+.access-denied-content p {
+    color: #718096;                  /* Light gray color */
+    margin-bottom: 25px;             /* Space below paragraph */
+}
+
+/* ===== PASSWORD REQUIREMENTS STYLES ===== */
+/* Password requirements box styling */
+.password-requirements {
+    background: #e6fffa;              /* Very light teal background */
+    border: 1px solid #81e6d9;       /* Teal border */
+    border-radius: 8px;               /* Rounded corners */
+    padding: 15px;                   /* Internal padding */
+    margin: 10px 0;                  /* Margin above and below */
+    text-align: left;                /* Left-aligned text */
+}
+
+/* Password requirements title styling */
+.password-requirements h4 {
+    color: #2c7a7b;                   /* Dark teal color */
+    margin-bottom: 10px;             /* Space below title */
+    font-size: 14px;                 /* Font size */
+    display: flex;                  /* Flexbox for alignment */
+    align-items: center;              /* Vertical center alignment */
+    gap: 8px;                        /* Space between icon and text */
+}
+
+/* Password requirements list styling */
+.password-requirements ul {
+    margin: 0;                      /* Remove default margin */
+    padding-left: 20px;             /* Indent list items */
+    color: #2c7a7b;                 /* Dark teal color */
+}
+
+/* Password requirements list item styling */
+.password-requirements li {
+    margin: 5px 0;                  /* Space above and below list items */
+    font-size: 13px;                 /* Font size */
+}
+
+/* ===== STATISTICS DASHBOARD ===== */
+/* Statistics grid layout styling */
+.stats-grid {
+    display: grid;                  /* CSS Grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));    /* Responsive columns */
+    gap: 20px;                    /* Space between statistic cards */
+    margin-bottom: 30px;           /* Space below section */
+}
+
+/* Individual statistic card styling */
+.stat-card {
+    background: white;            /* White background */
+    border-radius: 16px;           /* Rounded corners */
+    padding: 24px;                 /* Internal padding */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    display: flex;                  /* Flexbox layout */
+    align-items: center;            /* Vertical center alignment */
+    gap: 20px;                    /* Space between icon and text */
+    transition: all 0.3s ease;     /* Smooth transition for hover effects */
+}
+
+/* Statistic card hover effect */
+.stat-card:hover {
+    transform: translateY(-2px);    /* Lift effect */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); /* Shadow on hover */
+}
+
+/* Statistic icon styling */
+.stat-icon {
+    width: 60px;                   /* Fixed width */
+    height: 60px;                  /* Fixed height */
+    background: linear-gradient(135deg, #667eea, #764ba2);    /* Gradient background */
+    border-radius: 16px;           /* Rounded corners */
+    display: flex;                  /* Flexbox for alignment */
+    align-items: center;            /* Vertical center alignment */
+    justify-content: center;        /* Centered icon */
+    color: white;                 /* White text color */
+    font-size: 24px;               /* Font size */
+}
+
+/* Statistic info container styling */
+.stat-info {
+    flex: 1;                        /* Take up remaining space */
+}
+
+/* Statistic number (value) styling */
+.stat-number {
+    font-size: 2.5rem;              /* Large font size */
+    font-weight: 700;               /* Bold weight */
+    color: #2d3748;                 /* Dark gray color */
+    line-height: 1;                /* Line height */
+    margin-bottom: 4px;             /* Space below number */
+}
+
+/* Statistic label (description) styling */
+.stat-label {
+    color: #718096;                /* Light gray color */
+    font-size: 14px;               /* Font size */
+    font-weight: 500;               /* Medium bold text */
+    text-transform: uppercase;      /* Uppercase text */
+    letter-spacing: 0.5px;         /* Letter spacing */
+}
+
+/* Responsive adjustments for statistics dashboard */
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);    /* Two columns on smaller screens */
+        gap: 15px;                    /* Space between cards */
+    }
+    
+    .stat-card {
+        padding: 16px;                 /* Reduced padding */
+        gap: 15px;                    /* Space between icon and text */
+    }
+    
+    .stat-icon {
+        width: 50px;                   /* Smaller icon */
+        height: 50px;                  /* Smaller icon */
+        font-size: 20px;               /* Smaller font size */
+    }
+    
+    .stat-number {
+        font-size: 2rem;               /* Smaller number */
+    }
+    
+    .stat-label {
+        font-size: 12px;               /* Smaller label */
+    }
+    
+    /* Mobile responsiveness for forms */
+    .form-group {
+        margin-bottom: 15px;           /* Space below form groups */
+    }
+
+    .form-group label {
+        margin-bottom: 6px;            /* Space below labels */
+        font-size: 13px;               /* Smaller font size */
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: 12px 14px;            /* Reduced padding */
+        font-size: 15px;               /* Font size */
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+        font-size: 14px;               /* Font size */
+    }
+
+    .btn {
+        padding: 10px 20px;            /* Reduced padding */
+        font-size: 13px;               /* Font size */
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea, #764ba2);    /* Gradient background */
+        color: white;                 /* White text color */
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);    /* Lift effect */
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4); /* Shadow on hover */
+    }
+
+    .btn-outline {
+        background: white;            /* White background */
+        color: #667eea;               /* Brand color */
+        border: 2px solid #667eea;   /* Border with brand color */
+    }
+
+    .btn-outline:hover {
+        background: #667eea;          /* Brand color background */
+        color: white;                 /* White text color */
+        transform: translateY(-2px);  /* Lift effect */
+    }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #ff6b6b, #ee5a52);    /* Gradient background */
+        color: white;                 /* White text color */
+    }
+
+    .btn-danger:hover {
+        transform: translateY(-2px);  /* Lift effect */
+        box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4); /* Shadow on hover */
+    }
+
+    .btn-full {
+        width: 100%;                  /* Full width */
+        justify-content: center;      /* Center content */
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;        /* Single column on smallest screens */
+        gap: 12px;                    /* Space between cards */
+    }
+    
+    .header h1 {
+        font-size: 2rem;               /* Smaller title */
+    }
+
+    .header-content {
+        flex-direction: column;          /* Column direction on small screens */
+        align-items: flex-start;        /* Align to start */
+    }
+
+    .header-actions {
+        width: 100%;                    /* Full width */
+        justify-content: space-between;  /* Space between actions */
+        margin-top: 10px;               /* Space above actions */
+    }
+
+    .btn {
+        width: 100%;                    /* Full width */
+        justify-content: center;        /* Center content */
+    }
+}
+
+/* Today's Events */
+.todays-events-list {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.todays-events-list .no-events {
+    text-align: center;
+    color: #718096;
+    font-style: italic;
+    padding: 20px;
+}
+
+.todays-events-list .event-card {
+    margin-bottom: 15px;
+}
+
+.todays-events-list .event-card:last-child {
+    margin-bottom: 0;
+}
+
+/* Event Type Icons */
