@@ -1,4 +1,4 @@
-     # 📅 Boxo Event Calendar & Notification System
+# 📅 Boxo Event Calendar & Notification System
 
 <div alig### 👨‍🎓 **- ➕ **Complete - 🔒 **###├── 📄 README.md                    # This comprehensive guide📂 **Project Structure Explained**ecurity First** - Input validation, SQL injection protection, CORS handlingvent Management** - Create, edit, update, and delete events
 - 📊 **Real-time Dashboard** - View statistics and today's events at a glance
